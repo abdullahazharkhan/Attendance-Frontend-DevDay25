@@ -49,7 +49,7 @@ function App() {
 				<h1 className="font-semibold text-3xl">
 					{currPage === "Attendance"
 						? "MARK YOUR ATTENDANCE"
-						: "CERTIFICATE PORTAL"}
+						: "Download Team Certificates"}
 				</h1>
 
 				{/* Show AttForm when Attendance is selected, otherwise show Certificate */}
