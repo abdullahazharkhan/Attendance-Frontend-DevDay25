@@ -13,8 +13,9 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { BarLoader } from "react-spinners";
+import { BarLoader, BeatLoader } from "react-spinners";
 import Turnstile from "react-turnstile";
+import { FaCheck } from "react-icons/fa6";
 
 
 const formSchema = z.object({
@@ -36,7 +37,7 @@ export function AttForm({ page }) {
     async function onSubmit(values) {
         const att_code = values.att_code;
         if (token === "") {
-            toast.error("Please verify that you are not a robot.");
+            toast.error("Verifying that you're not a robot.");
             return;
         } else if (page === "Attendance") {
             // thore masle wala code
@@ -146,13 +147,22 @@ export function AttForm({ page }) {
                         </FormItem>
                     )}
                 />
-                <Turnstile className="w-full mt-3.5"
+                <div className="w-full my-4">
+                    {token === "" ? <div className="flex gap-2 items-center justify-center text-sm">
+                        <BeatLoader color="#ff33339f" size={10} />
+                        <p>Verifying that you&apos;re not a robot.</p>
+                    </div> : <div className="flex gap-2 items-center justify-center text-sm">
+                        <FaCheck className="text-[#ff33339f] text-lg" />
+                        <p>Verified.</p>
+                    </div>}
+                </div>
+                <Turnstile className="w-full"
                     sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
                     onVerify={(token) => setToken(token)}
                     onError={(error) => toast.error("Verification Error: " + error)}
                     onExpire={() => console.log("Turnstile Expired")}
                 />
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full disabled:cursor-not-allowed" disabled={loading && token === ""}>
                     {loading
                         ? <BarLoader color="#fff" />
                         : page === "Attendance"

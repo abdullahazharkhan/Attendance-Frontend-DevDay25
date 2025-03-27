@@ -10,9 +10,7 @@ function App() {
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-5 font-poppins p-3 flex flex-col justify-center items-center">
-			<Squares
-				borderColor="rgb(66 65 65)"
-			/>
+			<Squares borderColor="rgb(66 65 65)" />
 			<div className="relative flex gap-2 mx-auto w-fit p-1 rounded-lg bg-white/9 backdrop-blur-sm font-semibold tracking-wide text-lg">
 				<button
 					onClick={() => setCurrPage("Attendance")}
@@ -31,8 +29,12 @@ function App() {
 			</div>
 			<div className="mt-10 w-fit flex flex-col gap-4 justify-center items-center mx-auto rounded-xl p-8 text-white text-center relative z-50 bg-white/9 backdrop-blur-sm">
 				<img src="/logo.png" alt="DevDay'25" className="cursor-pointer mx-auto w-[400px]" />
-				<h1 className='font-semibold text-3xl'>{currPage === "Attendance" ? "MARK YOUR ATTENDANCE" : "DOWNLOAD CERTIFICATE"}</h1>
-				<AttForm page={currPage} />
+				<div className="flex flex-col gap-4 items-center">
+					<h1 className='font-semibold text-3xl my-2'>
+						{currPage === "Attendance" ? "MARK YOUR ATTENDANCE" : "DOWNLOAD CERTIFICATE"}
+					</h1>
+					<AttForm page={currPage} />
+				</div>
 			</div>
 			<Toaster position={"bottom-center"} />
 		</div>
