@@ -11,6 +11,7 @@ function App() {
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-20 font-poppins p-3">
 			<Squares squareSize={40} borderColor="rgb(66 65 65)" />
+			
 			<div className="relative flex gap-2 mx-auto w-fit p-1 rounded-lg bg-white/9 backdrop-blur-sm font-semibold tracking-wide text-lg">
 				<button
 					onClick={() => setCurrPage("Attendance")}
