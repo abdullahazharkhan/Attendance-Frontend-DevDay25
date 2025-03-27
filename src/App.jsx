@@ -9,7 +9,7 @@ function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
 
 	return (
-		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-20 font-poppins p-3">
+		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-5 font-poppins p-3 flex flex-col justify-center items-center">
 			<Squares
 				borderColor="rgb(66 65 65)"
 			/>

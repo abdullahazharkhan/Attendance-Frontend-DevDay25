@@ -149,7 +149,7 @@ export function AttForm({ page }) {
                 <Turnstile className="w-full mt-3.5"
                     sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
                     onVerify={(token) => setToken(token)}
-                    onError={(error) => console.error("Turnstile Error:", error)}
+                    onError={(error) => toast.error("Verification Error: " + error)}
                     onExpire={() => console.log("Turnstile Expired")}
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
