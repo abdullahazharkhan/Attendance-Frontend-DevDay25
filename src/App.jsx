@@ -2,12 +2,14 @@ import Squares from './components/Squares'
 import { useState } from 'react'
 import { FaLock } from "react-icons/fa";
 import './App.css'
+import { AttForm } from './components/Form';
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
 
   return (
-    <div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-20 font-poppins">
+    <div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-20 font-poppins p-3">
       <Squares
         squareSize={40}
         borderColor="rgb(66 65 65)"
@@ -28,12 +30,12 @@ function App() {
           {currPage !== "Certificate" && <FaLock className='text-sm' />}
         </button>
       </div>
-      <div className="mt-20 w-fit flex flex-col justify-center items-center mx-auto rounded-xl p-4 text-white text-center relative z-50 bg-white/9 backdrop-blur-sm">
+      <div className="mt-10 w-fit flex flex-col gap-4 justify-center items-center mx-auto rounded-xl p-8 text-white text-center relative z-50 bg-white/9 backdrop-blur-sm">
         <img src="/logo.webp" alt="DevDay'25" className="cursor-pointer" />
         <h1 className='font-semibold text-3xl'>MARK YOUR ATTENDANCE</h1>
-        <div className='flex flex-col gap-2'>
-        </div>
+        <AttForm />
       </div>
+      <Toaster position={"bottom-center"} />
     </div>
   )
 }
