@@ -5,6 +5,7 @@ import "./App.css";
 import { AttForm } from "./components/Form";
 import Certificate from "./components/Certificate"; // Import Certificate component
 import { Toaster } from "@/components/ui/sonner";
+import Info from "./components/ui/Info";
 
 function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
@@ -55,6 +56,7 @@ function App() {
 				{/* Show AttForm when Attendance is selected, otherwise show Certificate */}
 				{currPage === "Attendance" ? <AttForm /> : <Certificate />}
 			</div>
+			<Info />
 
 			<Toaster position={"bottom-center"} />
 		</div>
