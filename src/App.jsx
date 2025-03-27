@@ -31,7 +31,7 @@ function App() {
         </button>
       </div>
       <div className="mt-10 w-fit flex flex-col gap-4 justify-center items-center mx-auto rounded-xl p-8 text-white text-center relative z-50 bg-white/9 backdrop-blur-sm">
-        <img src="/logo.webp" alt="DevDay'25" className="cursor-pointer" />
+        <img src="/logo.png" alt="DevDay'25" className="cursor-pointer mx-auto w-[400px]" />
         <h1 className='font-semibold text-3xl'>MARK YOUR ATTENDANCE</h1>
         <AttForm />
       </div>
