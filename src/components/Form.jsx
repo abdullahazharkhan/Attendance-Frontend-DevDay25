@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-
+import axios from "axios";
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,8 +14,8 @@ import {
 import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
-    att_code: z.string().length(7, {
-        message: "Enter the seven chars long code sent to your email.",
+    att_code: z.string().length(8, {
+        message: "Enter the eight chars long code sent to your email.",
     }),
 })
 
@@ -27,8 +27,40 @@ export function AttForm() {
         },
     })
 
+    async function markAttendance(att_code) {
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const { latitude, longitude } = position.coords;
+                try {
+                    const response = await axios.post("http://localhost:4000/api/attendance/mark", {
+                        att_code,
+                        latitude,
+                        longitude,
+                    });
+                    toast.success(response.data.message);
+                    console.log(response.data.team);
+                } catch (error) {
+                    if (error.response) {
+                        toast.error(error.response.data.message);
+                        console.error("API Error:", error.response.data.message);
+                    } else if (error.request) {
+                        toast.error("No response from server");
+                        console.error("No response from server:", error.request);
+                    } else {
+                        toast.error("Error setting up request: " + error.message);
+                        console.error("Error setting up request:", error.message);
+                    }
+                }
+            },
+            (geoError) => {
+                toast.error("Geolocation error: " + geoError.message);
+                console.error("Geolocation error:", geoError.message);
+            }
+        );
+    }
+
     function onSubmit(values) {
-        toast("Attendance marked successfully");
+        markAttendance(values.att_code);
     }
 
     return (
@@ -41,7 +73,7 @@ export function AttForm() {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Input placeholder="Enter code" {...field}/>
+                                <Input placeholder="Enter code" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
