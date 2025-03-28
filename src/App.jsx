@@ -1,6 +1,6 @@
 import Squares from './components/Squares'
 import { useState } from 'react'
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaInfo } from "react-icons/fa";
 import './App.css'
 import { AttForm } from './components/Form';
 import { Toaster } from "@/components/ui/sonner"
@@ -14,14 +14,14 @@ function App() {
 			<div className="relative flex gap-2 mx-auto w-fit p-1 rounded-lg bg-white/9 backdrop-blur-sm font-semibold tracking-wide text-lg">
 				<button
 					onClick={() => setCurrPage("Attendance")}
-					disabled={currPage === "Attendance"}
+					// disabled={currPage === "Attendance"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Attendance" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Attendance
 					{currPage !== "Attendance" && <FaLock className='text-sm' />}
 				</button>
 				<button
 					onClick={() => setCurrPage("Certificate")}
-					disabled={currPage !== "Certificate"}
+					// disabled={currPage !== "Certificate"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Certificate" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Certificate
 					{currPage !== "Certificate" && <FaLock className='text-sm' />}
