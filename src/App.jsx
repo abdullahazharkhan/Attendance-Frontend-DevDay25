@@ -5,10 +5,11 @@ import "./App.css";
 import { AttForm } from "./components/Form";
 import Certificate from "./components/Certificate"; // Import Certificate component
 import { Toaster } from "@/components/ui/sonner";
+import Info from "./components/ui/Info";
 
 function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
-
+	// const [currInfo,setCurrInfo] = useState();// cotinue from here
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-20 font-poppins p-3">
 			<Squares squareSize={40} borderColor="rgb(66 65 65)" />
@@ -49,7 +50,7 @@ function App() {
 				<h1 className="font-semibold text-3xl">
 					{currPage === "Attendance"
 						? "MARK YOUR ATTENDANCE"
-						: "CERTIFICATE PORTAL"}
+						: "Download Team Certificates"}
 				</h1>
 
 				{/* Show AttForm when Attendance is selected, otherwise show Certificate */}
@@ -57,6 +58,7 @@ function App() {
 			</div>
 
 			<Toaster position={"bottom-center"} />
+			<Info />
 		</div>
 	);
 }
