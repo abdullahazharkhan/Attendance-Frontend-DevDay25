@@ -9,7 +9,7 @@ import Info from "./components/ui/Info";
 
 function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
-	// const [currInfo,setCurrInfo] = useState();// cotinue from here
+	const [currInfo, setCurrInfo] = useState(); // cotinue from here
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-20 font-poppins p-3">
 			<Squares squareSize={40} borderColor="rgb(66 65 65)" />
