@@ -58,7 +58,7 @@ function App() {
 			</div>
 
 			<Toaster position={"bottom-center"} />
-			<Info />
+			{currPage === "Attendance" ? <Info /> : null}
 		</div>
 	);
 }
