@@ -61,6 +61,7 @@ function App() {
 			{currPage === "Attendance" ? <Info /> : null}
 		</div>
 	);
+
 }
 
 export default App;

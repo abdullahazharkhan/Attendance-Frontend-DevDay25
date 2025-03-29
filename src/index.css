@@ -6,6 +6,8 @@
 
 body {
     @apply text-[#FAFAFA];
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
 .canvas {
