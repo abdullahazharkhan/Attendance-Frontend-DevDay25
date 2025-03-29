@@ -1,12 +1,14 @@
 import Squares from './components/Squares'
 import { useState } from 'react'
-import { FaLock, FaInfo } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaArrowUpLong, FaArrowTurnUp } from "react-icons/fa6";
 import './App.css'
 import { AttForm } from './components/Form';
 import { Toaster } from "@/components/ui/sonner"
 
 function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
+	const [showInfo, setShowInfo] = useState(false);
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-5 font-poppins p-3 flex flex-col justify-center items-center">
@@ -27,13 +29,26 @@ function App() {
 					{currPage !== "Certificate" && <FaLock className='text-sm' />}
 				</button>
 			</div>
-			<div className="mt-10 w-fit flex flex-col gap-4 justify-center items-center mx-auto rounded-xl p-8 text-white text-center relative z-50 bg-white/9 backdrop-blur-sm">
+			<div className="mt-10 w-fit flex flex-col gap-4 justify-center items-center mx-auto rounded-xl p-8 text-white text-center relative bg-white/9 backdrop-blur-sm">
 				<img src="/logo.png" alt="DevDay'25" className="cursor-pointer mx-auto w-[400px]" />
 				<div className="flex flex-col gap-4 items-center">
 					<h1 className='font-semibold text-3xl my-2'>
 						{currPage === "Attendance" ? "MARK YOUR ATTENDANCE" : "DOWNLOAD CERTIFICATE"}
 					</h1>
 					<AttForm page={currPage} />
+				</div>
+			</div>
+			<div
+				onClick={() => setShowInfo(!showInfo)}
+				className='absolute bottom-0 right-10 w-[300px] bg-[#ff33339f] backdrop-blur-sm rounded-tl-md rounded-tr-md flex flex-col items-center cursor-help'>
+				<h3 className='text-xl font-medium my-1'>
+					Instructions
+				</h3>
+				<div className={`z-50 text-sm w-full border-t py-2  px-3 pb-2 ${showInfo ? " block" : "translate-y-0 hidden"} transition-all duration-300 ease-in-out`}>
+					<ul className='flex flex-col'>
+						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enable your device's location.</li>
+						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enter the code emailed to you.</li>
+					</ul>
 				</div>
 			</div>
 			<Toaster position={"bottom-center"} />
