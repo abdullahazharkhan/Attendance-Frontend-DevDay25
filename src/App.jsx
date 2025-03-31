@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/sonner"
 function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
 	const [showInfo, setShowInfo] = useState(false);
+	const [attendedTeam, setAttendedTeam] = useState(null);
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-5 font-poppins p-3 flex flex-col justify-center items-center">
@@ -32,19 +33,28 @@ function App() {
 			<div className="mt-10 w-fit flex flex-col gap-4 justify-center items-center mx-auto rounded-xl p-8 text-white text-center relative bg-white/9 backdrop-blur-sm">
 				<img src="/logo.png" alt="DevDay'25" className="cursor-pointer mx-auto w-[400px]" />
 				<div className="flex flex-col gap-4 items-center">
-					<h1 className='font-semibold text-3xl my-2'>
-						{currPage === "Attendance" ? "MARK YOUR ATTENDANCE" : "DOWNLOAD CERTIFICATE"}
-					</h1>
-					<AttForm page={currPage} />
+					{attendedTeam ? (
+						<h1 className='font-semibold text-2xl my-2'>
+							Attendance of the Team <br />
+							<span className='underline underline-offset-4 decoration-[#ff33339f] decoration-4'>{attendedTeam.Team_Name}</span> <br /> Marked Successfully!
+						</h1>
+					) : (
+						<>
+							<h1 className='font-semibold text-3xl my-2'>
+								{currPage === "Attendance" ? "MARK YOUR ATTENDANCE" : "DOWNLOAD CERTIFICATE"}
+							</h1>
+							<AttForm page={currPage} setAttendedTeam={setAttendedTeam} />
+						</>
+					)}
 				</div>
 			</div>
 			<div
 				onClick={() => setShowInfo(!showInfo)}
-				className='absolute bottom-0 right-10 w-[300px] bg-[#ff33339f] backdrop-blur-sm rounded-tl-md rounded-tr-md flex flex-col items-center cursor-help'>
-				<h3 className='text-xl font-medium my-1'>
+				className='absolute bottom-0 right-10 w-[227px] bg-[#ff33339f] backdrop-blur-sm rounded-tl-md rounded-tr-md flex flex-col items-center cursor-help'>
+				<h3 className='text-lg font-medium my-0.5'>
 					Instructions
 				</h3>
-				<div className={`z-50 text-sm w-full border-t py-2  px-3 pb-2 ${showInfo ? " block" : "translate-y-0 hidden"} transition-all duration-300 ease-in-out`}>
+				<div className={`z-50 text-xs w-full border-t py-2  px-3 pb-2 ${showInfo ? " block" : "translate-y-0 hidden"} transition-all duration-300 ease-in-out`}>
 					<ul className='flex flex-col'>
 						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enable your device's location.</li>
 						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enter the code emailed to you.</li>

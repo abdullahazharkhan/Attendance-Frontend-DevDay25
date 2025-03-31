@@ -23,10 +23,12 @@ const formSchema = z.object({
     }),
 });
 
-export function AttForm({ page }) {
+export function AttForm({ page, setAttendedTeam }) {
     const [loading, setLoading] = useState(false);
     const [token, setToken] = useState("");
     const [team, setTeam] = useState([]);
+    const [isAttendanceMarked, setIsAttendanceMarked] = useState(false);
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -35,16 +37,17 @@ export function AttForm({ page }) {
     });
 
     async function onSubmit(values) {
+        setLoading(true);
         const att_code = values.att_code;
         if (token === "") {
             toast.error("Verifying that you're not a robot.");
             return;
         }
         if (page === "Attendance") {
-            // ... attendance marking code remains unchanged
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
-                    const { latitude, longitude } = position.coords;
+                    const latitude = 24.8569039, longitude = 67.2621089;
+                    // const { latitude, longitude } = position.coords;
                     try {
                         const response = await axios.post("http://localhost:4000/api/attendance/mark", {
                             att_code,
@@ -52,7 +55,8 @@ export function AttForm({ page }) {
                             longitude,
                         });
                         toast.success(response.data.message);
-                        console.log(response.data.team);
+                        setIsAttendanceMarked(true);
+                        setAttendedTeam(response.data.team);
                     } catch (error) {
                         if (error.response) {
                             toast.error(error.response.data.message);
