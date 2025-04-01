@@ -46,8 +46,9 @@ export function AttForm({ page, setAttendedTeam }) {
         if (page === "Attendance") {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
-                    const latitude = 24.8569039, longitude = 67.2621089;
-                    // const { latitude, longitude } = position.coords;
+                    // fast coordinates
+                    // const latitude = 24.8569039, longitude = 67.2621089;
+                    const { latitude, longitude } = position.coords;
                     try {
                         const response = await axios.post("http://localhost:4000/api/attendance/mark", {
                             att_code,
