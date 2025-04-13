@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import CryptoJS from "crypto-js";
 import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -49,11 +50,13 @@ export function AttForm({ page, setAttendedTeam }) {
                     // fast coordinates
                     // const latitude = 24.8569039, longitude = 67.2621089;
                     const { latitude, longitude } = position.coords;
+                    const encryptionKey = import.meta.env.VITE_COORDS_ENCRYPTION_KEY;
+                    const coordinates = { latitude, longitude };
+                    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(coordinates), encryptionKey).toString();
                     try {
                         const response = await axios.post("http://localhost:4000/api/attendance/mark", {
                             att_code,
-                            latitude,
-                            longitude,
+                            coordinates: ciphertext,
                         });
                         toast.success(response.data.message);
                         setIsAttendanceMarked(true);
