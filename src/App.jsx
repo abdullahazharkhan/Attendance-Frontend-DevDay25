@@ -10,6 +10,7 @@ function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
 	const [showInfo, setShowInfo] = useState(false);
 	const [attendedTeam, setAttendedTeam] = useState(null);
+	const [isAlreadyMarked, setIsAlreadyMarked] = useState(false);
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-[#141414] to-[#0a0a0a] relative py-5 font-poppins p-3 flex flex-col justify-center items-center">
@@ -17,14 +18,14 @@ function App() {
 			<div className="relative flex gap-2 mx-auto w-fit p-1 rounded-lg bg-white/9 backdrop-blur-sm font-semibold tracking-wide text-lg">
 				<button
 					onClick={() => setCurrPage("Attendance")}
-					// disabled={currPage === "Attendance"}
+					disabled={currPage === "Attendance"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Attendance" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Attendance
 					{currPage !== "Attendance" && <FaLock className='text-sm' />}
 				</button>
 				<button
 					onClick={() => setCurrPage("Certificate")}
-					// disabled={currPage !== "Certificate"}
+					disabled={currPage !== "Certificate"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Certificate" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Certificate
 					{currPage !== "Certificate" && <FaLock className='text-sm' />}
@@ -34,16 +35,21 @@ function App() {
 				<img src="/logo.png" alt="DevDay'25" className="cursor-pointer mx-auto w-[400px]" />
 				<div className="flex flex-col gap-4 items-center">
 					{attendedTeam ? (
-						<h1 className='font-semibold text-2xl my-2'>
+						<h1 className='font-semibold text-2xl'>
 							Attendance of the Team <br />
-							<span className='underline underline-offset-4 decoration-[#ff33339f] decoration-4'>{attendedTeam.Team_Name}</span> <br /> Marked Successfully!
+							<span className='underline underline-offset-4 decoration-[#ff33339f] decoration-4'>
+								{attendedTeam.Team_Name.length > 30
+									? attendedTeam.Team_Name.substring(0, 27) + "..."
+									: attendedTeam.Team_Name}
+							</span> <br />
+							{isAlreadyMarked ? "is Already Marked!" : "Marked Successfully!"}
 						</h1>
 					) : (
 						<>
 							<h1 className='font-semibold text-3xl my-2'>
 								{currPage === "Attendance" ? "MARK YOUR ATTENDANCE" : "DOWNLOAD CERTIFICATE"}
 							</h1>
-							<AttForm page={currPage} setAttendedTeam={setAttendedTeam} />
+							<AttForm page={currPage} setAttendedTeam={setAttendedTeam} setIsAlreadyMarked={setIsAlreadyMarked} />
 						</>
 					)}
 				</div>

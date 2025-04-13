@@ -24,11 +24,10 @@ const formSchema = z.object({
     }),
 });
 
-export function AttForm({ page, setAttendedTeam }) {
+export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
     const [loading, setLoading] = useState(false);
     const [token, setToken] = useState("");
     const [team, setTeam] = useState([]);
-    const [isAttendanceMarked, setIsAttendanceMarked] = useState(false);
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -48,8 +47,8 @@ export function AttForm({ page, setAttendedTeam }) {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
                     // fast coordinates
-                    // const latitude = 24.8569039, longitude = 67.2621089;
-                    const { latitude, longitude } = position.coords;
+                    const latitude = 24.8569039, longitude = 67.2621089;
+                    // const { latitude, longitude } = position.coords;
                     const encryptionKey = import.meta.env.VITE_COORDS_ENCRYPTION_KEY;
                     const coordinates = { latitude, longitude };
                     const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(coordinates), encryptionKey).toString();
@@ -59,12 +58,18 @@ export function AttForm({ page, setAttendedTeam }) {
                             coordinates: ciphertext,
                         });
                         toast.success(response.data.message);
-                        setIsAttendanceMarked(true);
                         setAttendedTeam(response.data.team);
                     } catch (error) {
                         if (error.response) {
-                            toast.error(error.response.data.message);
-                            console.error("API Error:", error.response.data.message);
+                            const { status, data } = error.response;
+                            if (status || data.attendanceAlreadyMarked) {
+                                toast.error(data.message); 
+                                setIsAlreadyMarked(true);
+                                setAttendedTeam(data.team);
+                            } else {
+                                toast.error(data.message);
+                                console.error("API Error:", data.message);
+                            }
                         } else if (error.request) {
                             toast.error("No response from server");
                             console.error("No response from server:", error.request);
