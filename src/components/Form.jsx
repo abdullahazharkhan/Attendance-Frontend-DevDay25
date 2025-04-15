@@ -47,8 +47,8 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
                     // fast coordinates
-                    const latitude = 24.8569039, longitude = 67.2621089;
-                    // const { latitude, longitude } = position.coords;
+                    // const latitude = 24.8569039, longitude = 67.2621089;
+                    const { latitude, longitude } = position.coords;
                     const encryptionKey = import.meta.env.VITE_COORDS_ENCRYPTION_KEY;
                     const coordinates = { latitude, longitude };
                     const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(coordinates), encryptionKey).toString();
