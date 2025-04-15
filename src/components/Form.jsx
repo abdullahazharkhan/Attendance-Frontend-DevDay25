@@ -26,7 +26,7 @@ const formSchema = z.object({
 
 export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
     const [loading, setLoading] = useState(false);
-    const [token, setToken] = useState("");
+    // const [token, setToken] = useState("");
     const [team, setTeam] = useState([]);
 
     const form = useForm({
@@ -39,10 +39,10 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
     async function onSubmit(values) {
         setLoading(true);
         const att_code = values.att_code;
-        if (token === "") {
-            toast.error("Verifying that you're not a robot.");
-            return;
-        }
+        // if (token === "") {
+        //     toast.error("Verifying that you're not a robot.");
+        //     return;
+        // }
         if (page === "Attendance") {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
@@ -53,7 +53,7 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
                     const coordinates = { latitude, longitude };
                     const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(coordinates), encryptionKey).toString();
                     try {
-                        const response = await axios.post("http://localhost:4000/api/attendance/mark", {
+                        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/mark`, {
                             att_code,
                             coordinates: ciphertext,
                         });
@@ -63,7 +63,7 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
                         if (error.response) {
                             const { status, data } = error.response;
                             if (status || data.attendanceAlreadyMarked) {
-                                toast.error(data.message); 
+                                toast.error(data.message);
                                 setIsAlreadyMarked(true);
                                 setAttendedTeam(data.team);
                             } else {
@@ -90,7 +90,7 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
         } else if (page === "Certificate") {
             // certificate generation logic
             try {
-                const response = await axios.post("http://localhost:4000/api/certificates", {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/certificates`, {
                     att_code,
                 });
                 toast.success(response.data.message);
@@ -115,7 +115,7 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
 
     const downloadCertificate = async (downloadUrl, memberName) => {
         try {
-            const response = await axios.get(`http://localhost:4000${downloadUrl}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${downloadUrl}`, {
                 responseType: "blob",
             });
 
@@ -191,7 +191,9 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
                         </FormItem>
                     )}
                 />
-                <div className="w-full my-4">
+
+                {/* Verification box */}
+                {/* <div className="w-full my-4">
                     {token === "" ? (
                         <div className="flex gap-2 items-center justify-center text-sm">
                             <BeatLoader color="#ff33339f" size={10} />
@@ -210,11 +212,14 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
                     onVerify={(token) => setToken(token)}
                     onError={(error) => toast.error("Verification Error: " + error)}
                     onExpire={() => console.log("Turnstile Expired")}
-                />
+                /> */}
+                {/* Verification box */}
+
                 <Button
                     type="submit"
                     className="w-full disabled:cursor-not-allowed"
-                    disabled={loading && token === ""}
+                    // disabled={loading && token === ""}
+                    disabled={loading}
                 >
                     {loading ? (
                         <BarLoader color="#fff" />
