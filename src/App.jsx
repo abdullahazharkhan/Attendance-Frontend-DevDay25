@@ -1,10 +1,17 @@
 import Squares from './components/Squares'
 import { useState } from 'react'
 import { FaLock } from "react-icons/fa";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 import { FaArrowUpLong, FaArrowTurnUp } from "react-icons/fa6";
 import './App.css'
 import { AttForm } from './components/Form';
 import { Toaster } from "@/components/ui/sonner"
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 function App() {
 	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
@@ -17,14 +24,14 @@ function App() {
 			<Squares borderColor="rgb(66 65 65)" />
 			<div className="relative flex gap-2 mx-auto w-fit p-1 rounded-lg bg-white/9 backdrop-blur-sm font-semibold tracking-wide text-lg">
 				<button
-					onClick={() => {setCurrPage("Attendance"); setAttendedTeam(null); setIsAlreadyMarked(false)}}
+					onClick={() => { setCurrPage("Attendance"); setAttendedTeam(null); setIsAlreadyMarked(false) }}
 					// disabled={currPage === "Attendance"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Attendance" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Attendance
 					{currPage !== "Attendance" && <FaLock className='text-sm' />}
 				</button>
 				<button
-					onClick={() => {setCurrPage("Certificate"); setAttendedTeam(null); setIsAlreadyMarked(false)}}
+					onClick={() => { setCurrPage("Certificate"); setAttendedTeam(null); setIsAlreadyMarked(false) }}
 					disabled={currPage !== "Certificate"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Certificate" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Certificate
@@ -56,7 +63,7 @@ function App() {
 			</div>
 			<div
 				onClick={() => setShowInfo(!showInfo)}
-				className='absolute bottom-0 right-10 w-[227px] bg-[#ff33339f] backdrop-blur-sm rounded-tl-md rounded-tr-md flex flex-col items-center cursor-help'>
+				className='absolute bottom-0 left-10 w-[227px] bg-[#ff33339f] backdrop-blur-sm rounded-tl-md rounded-tr-md flex flex-col items-center cursor-help'>
 				<h3 className='text-lg font-medium my-0.5'>
 					Instructions
 				</h3>
@@ -67,6 +74,24 @@ function App() {
 					</ul>
 				</div>
 			</div>
+			<TooltipProvider>
+				<button
+					onClick={() => window.open("https://automation-showcase-devday25.vercel.app", "_blank")}
+					className="glowing-button flex justify-center items-center group absolute bottom-10 right-10 w-[50px] aspect-square cursor-pointer rounded-full bg-[#ff33339f] p-2 text-white transition-all duration-300 ease-in-out"
+				>
+					<Tooltip>
+						<TooltipTrigger className="cursor-pointer">
+							<IoMdInformationCircleOutline size={34} className="opacity-90" />
+						</TooltipTrigger>
+						<TooltipContent>
+							<p className="text-center text-md font-medium">
+								Know about <br /> the Developers
+							</p>
+						</TooltipContent>
+					</Tooltip>
+				</button>
+			</TooltipProvider>
+
 			<Toaster position={"bottom-center"} />
 		</div>
 	)

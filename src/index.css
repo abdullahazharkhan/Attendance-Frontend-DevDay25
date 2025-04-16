@@ -138,3 +138,24 @@ body {
     @apply bg-background text-foreground;
     }
 }
+
+.glowing-button {
+    /* Initial subtle shadow */
+    box-shadow: 0 0 5px #ff3333;
+    /* Animate glowing effect infinitely */
+    animation: glow 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px #ff3333;
+    }
+
+    50% {
+        box-shadow: 0 0 25px #ff3333;
+    }
+
+    100% {
+        box-shadow: 0 0 5px #ff3333;
+    }
+}
