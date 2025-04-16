@@ -19,7 +19,7 @@ import Turnstile from "react-turnstile";
 import { FaCheck } from "react-icons/fa6";
 
 const formSchema = z.object({
-    att_code: z.string().length(8, {
+    att_code: z.string().length(7, {
         message: "Enter the eight chars long code sent to your email.",
     }),
 });
