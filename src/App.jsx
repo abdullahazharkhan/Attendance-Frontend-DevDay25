@@ -75,21 +75,21 @@ function App() {
 				</div>
 			</div>
 			<TooltipProvider>
-				<button
-					onClick={() => window.open("https://automation-showcase-devday25.vercel.app", "_blank")}
-					className="glowing-button flex justify-center items-center group absolute bottom-10 right-10 w-[50px] aspect-square cursor-pointer rounded-full bg-[#ff33339f] p-2 text-white transition-all duration-300 ease-in-out"
-				>
-					<Tooltip>
-						<TooltipTrigger className="cursor-pointer">
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<button
+							onClick={() => window.open("https://automation-showcase-devday25.vercel.app", "_blank")}
+							className="glowing-button flex justify-center items-center group absolute bottom-10 right-10 w-[50px] aspect-square cursor-pointer rounded-full bg-[#ff33339f] p-2 text-white transition-all duration-300 ease-in-out"
+						>
 							<IoMdInformationCircleOutline size={34} className="opacity-90" />
-						</TooltipTrigger>
-						<TooltipContent>
-							<p className="text-center text-md font-medium">
-								Know about <br /> the Developers
-							</p>
-						</TooltipContent>
-					</Tooltip>
-				</button>
+						</button>
+					</TooltipTrigger>
+					<TooltipContent>
+						<p className="text-center text-md font-medium">
+							Know about <br /> the Developers
+						</p>
+					</TooltipContent>
+				</Tooltip>
 			</TooltipProvider>
 
 			<Toaster position={"bottom-center"} />
