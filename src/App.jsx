@@ -25,7 +25,7 @@ function App() {
 				</button>
 				<button
 					onClick={() => {setCurrPage("Certificate"); setAttendedTeam(null); setIsAlreadyMarked(false)}}
-					// disabled={currPage !== "Certificate"}
+					disabled={currPage !== "Certificate"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Certificate" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Certificate
 					{currPage !== "Certificate" && <FaLock className='text-sm' />}
