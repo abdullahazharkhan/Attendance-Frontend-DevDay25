@@ -20,7 +20,7 @@ import { FaCheck } from "react-icons/fa6";
 
 const formSchema = z.object({
     att_code: z.string().length(7, {
-        message: "Enter the eight chars long code sent to your email.",
+        message: "Enter the seven chars long code sent to your email.",
     }),
 });
 
