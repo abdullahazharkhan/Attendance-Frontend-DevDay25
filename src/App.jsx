@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/tooltip"
 
 function App() {
-	const [currPage, setCurrPage] = useState("Attendance"); // "Attendance" or "Certificate"
+	const [currPage, setCurrPage] = useState("Certificate"); // "Attendance" or "Certificate"
 	const [showInfo, setShowInfo] = useState(false);
 	const [attendedTeam, setAttendedTeam] = useState(null);
 	const [isAlreadyMarked, setIsAlreadyMarked] = useState(false);
@@ -25,7 +25,7 @@ function App() {
 			<div className="relative flex gap-2 mx-auto w-fit p-1 rounded-lg bg-white/9 backdrop-blur-sm font-semibold tracking-wide text-lg">
 				<button
 					onClick={() => { setCurrPage("Attendance"); setAttendedTeam(null); setIsAlreadyMarked(false) }}
-					// disabled={currPage === "Attendance"}
+					disabled={currPage !== "Attendance"}
 					className={`p-1 px-3 rounded-md flex items-center gap-2 ${currPage === "Attendance" ? "bg-[#ff33339f] cursor-pointer" : "cursor-not-allowed"}`}>
 					Attendance
 					{currPage !== "Attendance" && <FaLock className='text-sm' />}
@@ -69,8 +69,10 @@ function App() {
 				</h3>
 				<div className={`z-50 text-xs w-full border-t py-2  px-3 pb-2 ${showInfo ? " block" : "translate-y-0 hidden"} transition-all duration-300 ease-in-out`}>
 					<ul className='flex flex-col'>
-						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enable your device's location.</li>
-						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enter the code emailed to you.</li>
+						{/* <li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enable your device's location.</li> */}
+						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Enter the attendance code emailed to you.</li>
+						<li className='flex gap-2 items-center'> <FaArrowTurnUp className='rotate-90' /> Download the participation certificates for your team members.</li>
+						<li className='mt-2'> <strong>Tip:</strong> If the certificate has expired, refresh the page and re-enter the code.</li>
 					</ul>
 				</div>
 			</div>
@@ -78,7 +80,7 @@ function App() {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
-							onClick={() => window.open("https://automation-showcase-devday25.vercel.app", "_blank")}
+							onClick={() => window.open("https://automation.devday25.com/#team", "_blank")}
 							className="glowing-button flex justify-center items-center group absolute bottom-10 right-10 w-[50px] aspect-square cursor-pointer rounded-full bg-[#ff33339f] p-2 text-white transition-all duration-300 ease-in-out"
 						>
 							<IoMdInformationCircleOutline size={34} className="opacity-90" />
