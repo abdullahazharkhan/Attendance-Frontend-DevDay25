@@ -1,17 +1,17 @@
-import Squares from './components/Squares'
-import { useState } from 'react'
+import Squares from "./components/Squares";
+import { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { FaArrowUpLong, FaArrowTurnUp } from "react-icons/fa6";
-import './App.css'
-import { AttForm } from './components/Form';
-import { Toaster } from "@/components/ui/sonner"
+import "./App.css";
+import { AttForm } from "./components/Form";
+import { Toaster } from "@/components/ui/sonner";
 import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip"
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function App() {
 	const [currPage, setCurrPage] = useState("Certificate"); // "Attendance" or "Certificate"
@@ -94,9 +94,9 @@ function App() {
 				</Tooltip>
 			</TooltipProvider>
 
-			<Toaster position={"bottom-center"} />
-		</div>
-	)
+      <Toaster position={"bottom-center"} />
+    </div>
+  );
 }
 
-export default App
+export default App;
