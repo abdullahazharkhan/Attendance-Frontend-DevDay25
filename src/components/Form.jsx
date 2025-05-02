@@ -27,6 +27,7 @@ const formSchema = z.object({
 export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
     const [loading, setLoading] = useState(false);
     // const [token, setToken] = useState("");
+    const [downloadingIndex, setDownloadingIndex] = useState(null);
     const [team, setTeam] = useState([]);
 
     const form = useForm({
@@ -113,7 +114,8 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
         }
     }
 
-    const downloadCertificate = async (downloadUrl, memberName) => {
+    const downloadCertificate = async (downloadUrl, memberName, index) => {
+        setDownloadingIndex(index);
         try {
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${downloadUrl}`, {
                 responseType: "blob",
@@ -153,8 +155,11 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
             } else {
                 toast.error("Error downloading certificate");
             }
+        } finally {
+            setDownloadingIndex(null);
         }
     };
+
 
     if (team.length > 0) {
         return (
@@ -162,13 +167,18 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
                 <h1 className="text-2xl font-semibold">Click to download certificates</h1>
                 <div className="w-full flex gap-4 flex-wrap justify-center border-t pt-5 border-[#ff33339f]">
                     {team.map((member, index) => (
-                        <div
+                        <button
                             key={index}
-                            onClick={() => downloadCertificate(member.downloadUrl, member.memberName)}
-                            className="flex bg-[#ff33339f] rounded-md items-center justify-center text-sm px-3 py-2 cursor-pointer"
+                            onClick={() => downloadCertificate(member.downloadUrl, member.memberName, index)}
+                            className="flex bg-[#ff33339f] rounded-md items-center justify-center text-sm px-3 py-2 cursor-pointer min-w-[150px]"
+                            disabled={downloadingIndex === index}
                         >
-                            <p>{member.memberName}</p>
-                        </div>
+                            {downloadingIndex === index ? (
+                                <BarLoader color="#fff" width={100} />
+                            ) : (
+                                member.memberName
+                            )}
+                        </button>
                     ))}
                 </div>
             </>
