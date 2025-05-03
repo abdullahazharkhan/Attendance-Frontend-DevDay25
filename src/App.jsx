@@ -81,7 +81,7 @@ function App() {
 					<TooltipTrigger asChild>
 						<button
 							onClick={() => window.open("https://automation.devday25.com/#team", "_blank")}
-							className="glowing-button flex justify-center items-center group absolute bottom-10 right-10 w-[50px] aspect-square cursor-pointer rounded-full bg-[#ff33339f] p-2 text-white transition-all duration-300 ease-in-out"
+							className="glowing-button flex justify-center items-center group absolute bottom-10 right-6 sm:right-8 w-[50px] aspect-square cursor-pointer rounded-full bg-[#ff33339f] p-2 text-white transition-all duration-300 ease-in-out"
 						>
 							<IoMdInformationCircleOutline size={34} className="opacity-90" />
 						</button>

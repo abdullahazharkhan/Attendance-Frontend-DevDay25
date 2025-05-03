@@ -52,12 +52,12 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
           const { latitude, longitude } = position.coords;
           const encryptionKey = import.meta.env.VITE_COORDS_ENCRYPTION_KEY;
           const coordinates = { latitude, longitude };
-                    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(coordinates), encryptionKey).toString();
+          const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(coordinates), encryptionKey).toString();
           try {
-                        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/mark`, {
-                att_code,
-                coordinates: ciphertext,
-                        });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/mark`, {
+              att_code,
+              coordinates: ciphertext,
+            });
             toast.success(response.data.message);
             setAttendedTeam(response.data.team);
           } catch (error) {
@@ -91,9 +91,9 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
     } else if (page === "Certificate") {
       // certificate generation logic
       try {
-                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/certificates`, {
-            att_code,
-                });
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/certificates`, {
+          att_code,
+        });
         toast.success(response.data.message);
         console.log(response.data.downloadTokens);
         setTeam(response.data.downloadTokens);
@@ -117,9 +117,9 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
   const downloadCertificate = async (downloadUrl, memberName, index) => {
     setDownloadingIndex(index);
     try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${downloadUrl}`, {
-          responseType: "blob",
-            });
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${downloadUrl}`, {
+        responseType: "blob",
+      });
 
       const blob = new Blob([response.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
@@ -164,13 +164,13 @@ export function AttForm({ page, setAttendedTeam, setIsAlreadyMarked }) {
   if (team.length > 0) {
     return (
       <>
-                <h1 className="text-2xl font-semibold">Click to download certificates</h1>
-                <div className="w-full max-h-[50vh] overflow-y-auto flex gap-4 flex-wrap justify-center border-t pt-5 pb-2 border-[#ff33339f]">
-                {team.map((member, index) => (
+        <h1 className="text-2xl font-semibold">Click to download certificates</h1>
+        <div className="w-full max-h-[50vh] overflow-y-auto flex gap-4 flex-wrap justify-center border-t pt-5 pb-2 border-[#ff33339f]">
+          {team.map((member, index) => (
             <button
               key={index}
-                            onClick={() => downloadCertificate(member.downloadUrl, member.memberName, index)}
-                            className="flex bg-[#ff33339f] rounded-md items-center justify-center text-sm px-3 py-2 cursor-pointer min-w-[150px]"
+              onClick={() => downloadCertificate(member.downloadUrl, member.memberName, index)}
+              className="flex bg-[#ff33339f] rounded-md items-center justify-center text-sm px-3 py-2 cursor-pointer min-w-[150px] sm:w-[200px] w-full"
               disabled={downloadingIndex === index}
             >
               {downloadingIndex === index ? (
